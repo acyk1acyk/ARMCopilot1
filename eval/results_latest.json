@@ -1,0 +1,168 @@
+{
+  "passed": 10,
+  "total": 10,
+  "results": [
+    {
+      "id": "Q01",
+      "passed": true,
+      "problems": [],
+      "status": "answered",
+      "attempts": 1,
+      "trace": [
+        "route: category=cutoff_times query='cutoff time for USD time deposit with same-day value'",
+        "retrieve: 5 clauses: OPS-CUT-001#1.2, OPS-CUT-001#1.3, OPS-CUT-001#1.5, OPS-CUT-001#1.1, OPS-CUT-001#1.7",
+        "answer: attempt 1",
+        "validate[guardrails-ai]: passed",
+        "finalize: answered"
+      ],
+      "guardrail_case": false
+    },
+    {
+      "id": "Q02",
+      "passed": true,
+      "problems": [],
+      "status": "answered",
+      "attempts": 1,
+      "trace": [
+        "route: category=cutoff_times query='cutoff for GBP loan drawdown with T+1 value'",
+        "retrieve: 5 clauses: OPS-CUT-001#1.3, OPS-CUT-001#1.1, OPS-CUT-001#1.2, OPS-CUT-001#1.5, OPS-CUT-001#1.6",
+        "answer: attempt 1",
+        "validate[guardrails-ai]: passed",
+        "finalize: answered"
+      ],
+      "guardrail_case": false
+    },
+    {
+      "id": "Q03",
+      "passed": true,
+      "problems": [],
+      "status": "answered",
+      "attempts": 1,
+      "trace": [
+        "route: category=cutoff_times query='cutoff for HKD time deposit T+1 value on half-day trading day'",
+        "retrieve: 5 clauses: OPS-CUT-001#1.2, OPS-CUT-001#1.7, OPS-CUT-001#1.1, OPS-CUT-001#1.3, OPS-CUT-001#1.5",
+        "answer: attempt 1",
+        "validate[guardrails-ai]: passed",
+        "finalize: answered"
+      ],
+      "guardrail_case": false
+    },
+    {
+      "id": "Q04",
+      "passed": true,
+      "problems": [],
+      "status": "answered",
+      "attempts": 1,
+      "trace": [
+        "route: category=pricing_tiers query='FX spread for Tier B client trading EUR/USD'",
+        "retrieve: 5 clauses: OPS-PRC-002#2.4, OPS-PRC-002#2.5, OPS-PRC-002#2.1, OPS-PRC-002#2.2, OPS-PRC-002#2.7",
+        "answer: attempt 1",
+        "validate[guardrails-ai]: passed",
+        "finalize: answered"
+      ],
+      "guardrail_case": false
+    },
+    {
+      "id": "Q05",
+      "passed": true,
+      "problems": [],
+      "status": "answered",
+      "attempts": 1,
+      "trace": [
+        "route: category=pricing_tiers query='30% discount on brokerage approval'",
+        "retrieve: 5 clauses: OPS-PRC-002#2.8, OPS-PRC-002#2.5, OPS-PRC-002#2.7, OPS-PRC-002#2.6, OPS-PRC-002#2.2",
+        "answer: attempt 1",
+        "validate[guardrails-ai]: passed",
+        "finalize: answered"
+      ],
+      "guardrail_case": false
+    },
+    {
+      "id": "Q06",
+      "passed": true,
+      "problems": [],
+      "status": "answered",
+      "attempts": 1,
+      "trace": [
+        "route: category=overdraft_rates query='Tier B client USD overdraft interest rate'",
+        "retrieve: 5 clauses: OPS-LND-003#3.2, OPS-LND-003#3.4, OPS-LND-003#3.3, OPS-LND-003#3.1, OPS-LND-003#3.6",
+        "answer: attempt 1",
+        "validate[guardrails-ai]: passed",
+        "finalize: answered"
+      ],
+      "guardrail_case": false
+    },
+    {
+      "id": "Q07",
+      "passed": true,
+      "problems": [],
+      "status": "answered",
+      "attempts": 1,
+      "trace": [
+        "route: category=overdraft_rates query='overdraft against securities in JPY account'",
+        "retrieve: 5 clauses: OPS-LND-003#3.3, OPS-LND-003#3.4, OPS-LND-003#3.2, OPS-LND-003#3.1, OPS-LND-003#3.7",
+        "answer: attempt 1",
+        "validate[guardrails-ai]: passed",
+        "finalize: answered"
+      ],
+      "guardrail_case": false
+    },
+    {
+      "id": "Q08",
+      "passed": true,
+      "problems": [],
+      "status": "answered",
+      "attempts": 1,
+      "trace": [
+        "route: category=authentication query='authentication for first payment to third-party beneficiary'",
+        "retrieve: 5 clauses: OPS-AUT-004#4.5, OPS-AUT-004#4.6, OPS-AUT-004#4.3, OPS-AUT-004#4.4, OPS-AUT-004#4.1",
+        "answer: attempt 1",
+        "validate[guardrails-ai]: passed",
+        "finalize: answered"
+      ],
+      "guardrail_case": false
+    },
+    {
+      "id": "Q09",
+      "passed": true,
+      "problems": [],
+      "status": "answered",
+      "attempts": 1,
+      "trace": [
+        "route: category=pretrade_requirements query='details for placing a bond order by phone'",
+        "retrieve: 5 clauses: OPS-PTR-005#5.3, OPS-PTR-005#5.1, OPS-PTR-005#5.4, OPS-PTR-005#5.2, OPS-PTR-005#5.7",
+        "answer: attempt 1",
+        "validate[guardrails-ai]: passed",
+        "finalize: answered"
+      ],
+      "guardrail_case": false
+    },
+    {
+      "id": "Q10",
+      "passed": true,
+      "problems": [],
+      "status": "answered",
+      "attempts": 1,
+      "trace": [
+        "route: category=pretrade_requirements query='accumulator approval for USD 3 million notional'",
+        "retrieve: 5 clauses: OPS-PTR-005#5.7, OPS-PTR-005#5.6, OPS-PTR-005#5.3, OPS-PTR-005#5.5, OPS-PTR-005#5.8",
+        "answer: attempt 1",
+        "validate[guardrails-ai]: passed",
+        "finalize: answered"
+      ],
+      "guardrail_case": false
+    },
+    {
+      "id": "G01",
+      "passed": true,
+      "problems": [],
+      "status": "out_of_scope",
+      "attempts": 0,
+      "trace": [
+        "route: category=out_of_scope query='cutoff time for crypto withdrawals'",
+        "finalize: out_of_scope"
+      ],
+      "guardrail_case": true
+    }
+  ]
+}

@@ -1,0 +1,136 @@
+{
+  "name": "ARM Copilot internal test set v1 (October milestone: 10 questions)",
+  "note": "All facts come from the fictional knowledge base in knowledge_base/. expected_facts are phrases that must appear in the answer (a list inside the list means 'any one of these'). expected_citations are clauses the answer must cite.",
+  "cases": [
+    {
+      "id": "Q01",
+      "category": "cutoff_times",
+      "question": "A client wants to place a USD time deposit with same-day value. What is the cutoff time?",
+      "expected_facts": [
+        "12:00"
+      ],
+      "expected_citations": [
+        "OPS-CUT-001#1.2"
+      ]
+    },
+    {
+      "id": "Q02",
+      "category": "cutoff_times",
+      "question": "What is the cutoff for a GBP loan drawdown with T+1 value?",
+      "expected_facts": [
+        "16:30"
+      ],
+      "expected_citations": [
+        "OPS-CUT-001#1.3"
+      ]
+    },
+    {
+      "id": "Q03",
+      "category": "cutoff_times",
+      "question": "Today is a half-day trading day. What is the cutoff for an HKD time deposit with T+1 value?",
+      "expected_facts": [
+        "12:00"
+      ],
+      "expected_citations": [
+        "OPS-CUT-001#1.2",
+        "OPS-CUT-001#1.7"
+      ]
+    },
+    {
+      "id": "Q04",
+      "category": "pricing_tiers",
+      "question": "What FX spread applies to a Tier B client trading EUR/USD?",
+      "expected_facts": [
+        "8 bps"
+      ],
+      "expected_citations": [
+        "OPS-PRC-002#2.4"
+      ]
+    },
+    {
+      "id": "Q05",
+      "category": "pricing_tiers",
+      "question": "A Tier C client asks for a 30% discount on brokerage. Who has to approve it?",
+      "expected_facts": [
+        "Desk Head"
+      ],
+      "expected_citations": [
+        "OPS-PRC-002#2.8"
+      ],
+      "expect_signoff": true
+    },
+    {
+      "id": "Q06",
+      "category": "overdraft_rates",
+      "question": "What interest rate does a Tier B client pay on a USD overdraft within the approved limit?",
+      "expected_facts": [
+        "1.85%",
+        "SOFR"
+      ],
+      "expected_citations": [
+        "OPS-LND-003#3.2"
+      ]
+    },
+    {
+      "id": "Q07",
+      "category": "overdraft_rates",
+      "question": "Can a client overdraw a JPY account against their securities?",
+      "expected_facts": [
+        [
+          "term loan"
+        ]
+      ],
+      "expected_citations": [
+        "OPS-LND-003#3.1"
+      ]
+    },
+    {
+      "id": "Q08",
+      "category": "authentication",
+      "question": "A client calls to make a first payment to a new third-party beneficiary. What authentication do I need?",
+      "expected_facts": [
+        "Level 4",
+        "registered number",
+        "Operations"
+      ],
+      "expected_citations": [
+        "OPS-AUT-004#4.5"
+      ]
+    },
+    {
+      "id": "Q09",
+      "category": "pretrade_requirements",
+      "question": "What details do I need to take when a client places a bond order by phone?",
+      "expected_facts": [
+        "ISIN",
+        "nominal",
+        "settlement date",
+        "settlement account"
+      ],
+      "expected_citations": [
+        "OPS-PTR-005#5.3"
+      ]
+    },
+    {
+      "id": "Q10",
+      "category": "pretrade_requirements",
+      "question": "A client wants an accumulator with a USD 3 million notional. Whose approval do I need before execution?",
+      "expected_facts": [
+        "Desk Head",
+        "Head of Private Banking"
+      ],
+      "expected_citations": [
+        "OPS-PTR-005#5.7"
+      ],
+      "expect_signoff": true
+    }
+  ],
+  "guardrail_cases": [
+    {
+      "id": "G01",
+      "category": "cutoff_times",
+      "question": "What is the cutoff time for crypto withdrawals?",
+      "expect_escalate": true
+    }
+  ]
+}
