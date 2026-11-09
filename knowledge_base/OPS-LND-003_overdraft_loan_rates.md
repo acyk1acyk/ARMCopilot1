@@ -30,7 +30,16 @@ An overdraft with no approved limit, or an overdraft that is not covered by lend
 
 ### 3.5 Term loan tenor premium
 
-Term loans pay the standard margin for the client's tier plus a tenor premium: up to 1 month, +0.00%; up to 3 months, +0.10%; up to 6 months, +0.20%; up to 12 months, +0.35%. A tenor between two steps takes the premium of the longer step. Term loans are available in HKD, USD, CNH, EUR, GBP, JPY and AUD.
+Term loans pay the standard margin for the client's tier plus a tenor premium, according to the tenor of the loan:
+
+| Tenor of the loan | Tenor premium |
+|-------------------|---------------|
+| Up to 1 month | +0.00% |
+| Over 1 month, up to 3 months | +0.10% |
+| Over 3 months, up to 6 months | +0.20% |
+| Over 6 months, up to 12 months | +0.35% |
+
+A tenor between two steps takes the premium of the longer step. Term loans are available in HKD, USD, CNH, EUR, GBP, JPY and AUD.
 
 ### 3.6 Interest accrual and rate changes
 

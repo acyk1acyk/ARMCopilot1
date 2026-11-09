@@ -1,16 +1,18 @@
 {
-  "passed": 10,
-  "total": 10,
+  "passed": 28,
+  "total": 30,
   "results": [
     {
-      "id": "Q01",
-      "passed": true,
-      "problems": [],
+      "id": "T01",
+      "passed": false,
+      "problems": [
+        "missing fact: ['not the same', 'different', 'differ']"
+      ],
       "status": "answered",
       "attempts": 1,
       "trace": [
-        "route: category=cutoff_times query='cutoff time for USD time deposit with same-day value'",
-        "retrieve: 5 clauses: OPS-CUT-001#1.2, OPS-CUT-001#1.3, OPS-CUT-001#1.5, OPS-CUT-001#1.1, OPS-CUT-001#1.7",
+        "route: category=cutoff_times query='deposit cutoff times for same-day, T+1 and T+2 value, loan rollover cutoffs'",
+        "retrieve: 8 clauses: OPS-CUT-001#1.3, OPS-CUT-001#1.1, OPS-CUT-001#1.2, OPS-CUT-001#1.4, OPS-CUT-001#1.5, OPS-CUT-001#1.6, OPS-CUT-001#1.7, OPS-PTR-005#5.4",
         "answer: attempt 1",
         "validate[guardrails-ai]: passed",
         "finalize: answered"
@@ -18,14 +20,14 @@
       "guardrail_case": false
     },
     {
-      "id": "Q02",
+      "id": "T02",
       "passed": true,
       "problems": [],
       "status": "answered",
       "attempts": 1,
       "trace": [
-        "route: category=cutoff_times query='cutoff for GBP loan drawdown with T+1 value'",
-        "retrieve: 5 clauses: OPS-CUT-001#1.3, OPS-CUT-001#1.1, OPS-CUT-001#1.2, OPS-CUT-001#1.5, OPS-CUT-001#1.6",
+        "route: category=cutoff_times query='USD deposit same-day value 12:20 HKT'",
+        "retrieve: 9 clauses: OPS-CUT-001#1.2, OPS-CUT-001#1.5, OPS-CUT-001#1.3, OPS-CUT-001#1.1, OPS-CUT-001#1.7, OPS-CUT-001#1.6, OPS-CUT-001#1.4, OPS-LND-003#3.6, OPS-PRC-002#2.5",
         "answer: attempt 1",
         "validate[guardrails-ai]: passed",
         "finalize: answered"
@@ -33,14 +35,14 @@
       "guardrail_case": false
     },
     {
-      "id": "Q03",
+      "id": "T03",
       "passed": true,
       "problems": [],
       "status": "answered",
       "attempts": 1,
       "trace": [
-        "route: category=cutoff_times query='cutoff for HKD time deposit T+1 value on half-day trading day'",
-        "retrieve: 5 clauses: OPS-CUT-001#1.2, OPS-CUT-001#1.7, OPS-CUT-001#1.1, OPS-CUT-001#1.3, OPS-CUT-001#1.5",
+        "route: category=cutoff_times query='EUR same-day deposit cutoff'",
+        "retrieve: 8 clauses: OPS-CUT-001#1.2, OPS-CUT-001#1.3, OPS-CUT-001#1.5, OPS-CUT-001#1.7, OPS-CUT-001#1.1, OPS-CUT-001#1.6, OPS-CUT-001#1.4, OPS-PTR-005#5.4",
         "answer: attempt 1",
         "validate[guardrails-ai]: passed",
         "finalize: answered"
@@ -48,14 +50,14 @@
       "guardrail_case": false
     },
     {
-      "id": "Q04",
+      "id": "T04",
       "passed": true,
       "problems": [],
       "status": "answered",
       "attempts": 1,
       "trace": [
-        "route: category=pricing_tiers query='FX spread for Tier B client trading EUR/USD'",
-        "retrieve: 5 clauses: OPS-PRC-002#2.4, OPS-PRC-002#2.5, OPS-PRC-002#2.1, OPS-PRC-002#2.2, OPS-PRC-002#2.7",
+        "route: category=cutoff_times query='same-day HKD deposit instruction during Typhoon Signal No. 8'",
+        "retrieve: 9 clauses: OPS-CUT-001#1.7, OPS-CUT-001#1.2, OPS-CUT-001#1.5, OPS-CUT-001#1.1, OPS-CUT-001#1.3, OPS-CUT-001#1.4, OPS-CUT-001#1.6, OPS-PTR-005#5.10, OPS-LND-003#3.6",
         "answer: attempt 1",
         "validate[guardrails-ai]: passed",
         "finalize: answered"
@@ -63,14 +65,14 @@
       "guardrail_case": false
     },
     {
-      "id": "Q05",
+      "id": "T05",
       "passed": true,
       "problems": [],
       "status": "answered",
       "attempts": 1,
       "trace": [
-        "route: category=pricing_tiers query='30% discount on brokerage approval'",
-        "retrieve: 5 clauses: OPS-PRC-002#2.8, OPS-PRC-002#2.5, OPS-PRC-002#2.7, OPS-PRC-002#2.6, OPS-PRC-002#2.2",
+        "route: category=pricing_tiers query='standard prices for Tier B client for FX, equities, bonds and structured products'",
+        "retrieve: 9 clauses: OPS-PRC-002#2.10, OPS-PRC-002#2.5, OPS-PRC-002#2.1, OPS-PRC-002#2.4, OPS-PRC-002#2.3, OPS-PRC-002#2.7, OPS-PRC-002#2.6, OPS-PRC-002#2.2, OPS-LND-003#3.2",
         "answer: attempt 1",
         "validate[guardrails-ai]: passed",
         "finalize: answered"
@@ -78,14 +80,14 @@
       "guardrail_case": false
     },
     {
-      "id": "Q06",
+      "id": "T06",
       "passed": true,
       "problems": [],
       "status": "answered",
       "attempts": 1,
       "trace": [
-        "route: category=overdraft_rates query='Tier B client USD overdraft interest rate'",
-        "retrieve: 5 clauses: OPS-LND-003#3.2, OPS-LND-003#3.4, OPS-LND-003#3.3, OPS-LND-003#3.1, OPS-LND-003#3.6",
+        "route: category=pricing_tiers query='price change with transaction amount for FX, bonds and funds'",
+        "retrieve: 10 clauses: OPS-PRC-002#2.10, OPS-PRC-002#2.4, OPS-PRC-002#2.5, OPS-PRC-002#2.6, OPS-PRC-002#2.9, OPS-PRC-002#2.1, OPS-PRC-002#2.3, OPS-PRC-002#2.8, OPS-PTR-005#5.3, OPS-PTR-005#5.9",
         "answer: attempt 1",
         "validate[guardrails-ai]: passed",
         "finalize: answered"
@@ -93,14 +95,14 @@
       "guardrail_case": false
     },
     {
-      "id": "Q07",
+      "id": "T07",
       "passed": true,
       "problems": [],
       "status": "answered",
       "attempts": 1,
       "trace": [
-        "route: category=overdraft_rates query='overdraft against securities in JPY account'",
-        "retrieve: 5 clauses: OPS-LND-003#3.3, OPS-LND-003#3.4, OPS-LND-003#3.2, OPS-LND-003#3.1, OPS-LND-003#3.7",
+        "route: category=pricing_tiers query='Tier B spread on other FX pairs'",
+        "retrieve: 10 clauses: OPS-PRC-002#2.4, OPS-PRC-002#2.10, OPS-PRC-002#2.5, OPS-PRC-002#2.3, OPS-PRC-002#2.9, OPS-PRC-002#2.1, OPS-PRC-002#2.7, OPS-PRC-002#2.6, OPS-PTR-005#5.4, OPS-LND-003#3.2",
         "answer: attempt 1",
         "validate[guardrails-ai]: passed",
         "finalize: answered"
@@ -108,14 +110,14 @@
       "guardrail_case": false
     },
     {
-      "id": "Q08",
+      "id": "T08",
       "passed": true,
       "problems": [],
       "status": "answered",
       "attempts": 1,
       "trace": [
-        "route: category=authentication query='authentication for first payment to third-party beneficiary'",
-        "retrieve: 5 clauses: OPS-AUT-004#4.5, OPS-AUT-004#4.6, OPS-AUT-004#4.3, OPS-AUT-004#4.4, OPS-AUT-004#4.1",
+        "route: category=pricing_tiers query='45% discount off brokerage approval needed'",
+        "retrieve: 10 clauses: OPS-PRC-002#2.8, OPS-PRC-002#2.9, OPS-PRC-002#2.5, OPS-PRC-002#2.7, OPS-PRC-002#2.3, OPS-PRC-002#2.6, OPS-PRC-002#2.2, OPS-PRC-002#2.1, OPS-PTR-005#5.7, OPS-PTR-005#5.11",
         "answer: attempt 1",
         "validate[guardrails-ai]: passed",
         "finalize: answered"
@@ -123,14 +125,16 @@
       "guardrail_case": false
     },
     {
-      "id": "Q09",
-      "passed": true,
-      "problems": [],
+      "id": "T09",
+      "passed": false,
+      "problems": [
+        "expected requires_signoff to be true"
+      ],
       "status": "answered",
       "attempts": 1,
       "trace": [
-        "route: category=pretrade_requirements query='details for placing a bond order by phone'",
-        "retrieve: 5 clauses: OPS-PTR-005#5.3, OPS-PTR-005#5.1, OPS-PTR-005#5.4, OPS-PTR-005#5.2, OPS-PTR-005#5.7",
+        "route: category=pricing_tiers query='client-specific additional markup on FX, standard markup, approval process'",
+        "retrieve: 10 clauses: OPS-PRC-002#2.9, OPS-PRC-002#2.3, OPS-PRC-002#2.10, OPS-PRC-002#2.4, OPS-PRC-002#2.8, OPS-PRC-002#2.7, OPS-PRC-002#2.5, OPS-PRC-002#2.6, OPS-PTR-005#5.7, OPS-PTR-005#5.6",
         "answer: attempt 1",
         "validate[guardrails-ai]: passed",
         "finalize: answered"
@@ -138,14 +142,314 @@
       "guardrail_case": false
     },
     {
-      "id": "Q10",
+      "id": "T10",
       "passed": true,
       "problems": [],
       "status": "answered",
       "attempts": 1,
       "trace": [
-        "route: category=pretrade_requirements query='accumulator approval for USD 3 million notional'",
-        "retrieve: 5 clauses: OPS-PTR-005#5.7, OPS-PTR-005#5.6, OPS-PTR-005#5.3, OPS-PTR-005#5.5, OPS-PTR-005#5.8",
+        "route: category=pricing_tiers query='dealing margin on an accumulator'",
+        "retrieve: 9 clauses: OPS-PRC-002#2.7, OPS-PRC-002#2.9, OPS-PRC-002#2.3, OPS-PRC-002#2.6, OPS-PRC-002#2.8, OPS-PRC-002#2.4, OPS-PRC-002#2.10, OPS-PTR-005#5.6, OPS-LND-003#3.3",
+        "answer: attempt 1",
+        "validate[guardrails-ai]: passed",
+        "finalize: answered"
+      ],
+      "guardrail_case": false
+    },
+    {
+      "id": "T11",
+      "passed": true,
+      "problems": [],
+      "status": "answered",
+      "attempts": 1,
+      "trace": [
+        "route: category=overdraft_rates query='overdraft interest rate for Tier C client in EUR'",
+        "retrieve: 9 clauses: OPS-LND-003#3.2, OPS-LND-003#3.3, OPS-LND-003#3.4, OPS-LND-003#3.1, OPS-LND-003#3.6, OPS-LND-003#3.5, OPS-LND-003#3.7, OPS-PRC-002#2.5, OPS-PRC-002#2.1",
+        "answer: attempt 1",
+        "validate[guardrails-ai]: passed",
+        "finalize: answered"
+      ],
+      "guardrail_case": false
+    },
+    {
+      "id": "T12",
+      "passed": true,
+      "problems": [],
+      "status": "answered",
+      "attempts": 1,
+      "trace": [
+        "route: category=overdraft_rates query='overdraft availability in GBP'",
+        "retrieve: 9 clauses: OPS-LND-003#3.3, OPS-LND-003#3.2, OPS-LND-003#3.4, OPS-LND-003#3.1, OPS-LND-003#3.7, OPS-LND-003#3.6, OPS-LND-003#3.5, OPS-CUT-001#1.3, OPS-CUT-001#1.2",
+        "answer: attempt 1",
+        "validate[guardrails-ai]: passed",
+        "finalize: answered"
+      ],
+      "guardrail_case": false
+    },
+    {
+      "id": "T13",
+      "passed": true,
+      "problems": [],
+      "status": "answered",
+      "attempts": 1,
+      "trace": [
+        "route: category=overdraft_rates query='penalty rate for overdraft with collateral shortfall'",
+        "retrieve: 9 clauses: OPS-LND-003#3.4, OPS-LND-003#3.2, OPS-LND-003#3.3, OPS-LND-003#3.1, OPS-LND-003#3.7, OPS-LND-003#3.6, OPS-LND-003#3.5, OPS-PRC-002#2.6, OPS-PRC-002#2.5",
+        "answer: attempt 1",
+        "validate[guardrails-ai]: passed",
+        "finalize: answered"
+      ],
+      "guardrail_case": false
+    },
+    {
+      "id": "T14",
+      "passed": true,
+      "problems": [],
+      "status": "answered",
+      "attempts": 1,
+      "trace": [
+        "route: category=overdraft_rates query='overdraft approval needed and excess rate'",
+        "retrieve: 9 clauses: OPS-LND-003#3.3, OPS-LND-003#3.4, OPS-LND-003#3.2, OPS-LND-003#3.7, OPS-LND-003#3.1, OPS-LND-003#3.6, OPS-LND-003#3.5, OPS-PTR-005#5.7, OPS-PRC-002#2.8",
+        "answer: attempt 1",
+        "validate[guardrails-ai]: passed",
+        "finalize: answered"
+      ],
+      "guardrail_case": false
+    },
+    {
+      "id": "T15",
+      "passed": true,
+      "problems": [],
+      "status": "answered",
+      "attempts": 1,
+      "trace": [
+        "route: category=authentication query='standard steps to authenticate a client on a phone call, questions asked, cautions'",
+        "retrieve: 10 clauses: OPS-AUT-004#4.9, OPS-AUT-004#4.1, OPS-AUT-004#4.3, OPS-AUT-004#4.7, OPS-AUT-004#4.4, OPS-AUT-004#4.2, OPS-AUT-004#4.8, OPS-AUT-004#4.5, OPS-PTR-005#5.1, OPS-PTR-005#5.13",
+        "answer: attempt 1",
+        "validate[guardrails-ai]: passed",
+        "finalize: answered"
+      ],
+      "guardrail_case": false
+    },
+    {
+      "id": "T16",
+      "passed": true,
+      "problems": [],
+      "status": "answered",
+      "attempts": 1,
+      "trace": [
+        "route: category=authentication query='trade instruction without passphrase'",
+        "retrieve: 9 clauses: OPS-AUT-004#4.4, OPS-AUT-004#4.8, OPS-AUT-004#4.9, OPS-AUT-004#4.5, OPS-AUT-004#4.1, OPS-AUT-004#4.6, OPS-AUT-004#4.3, OPS-PTR-005#5.8, OPS-PTR-005#5.6",
+        "answer: attempt 1",
+        "validate[guardrails-ai]: passed",
+        "finalize: answered"
+      ],
+      "guardrail_case": false
+    },
+    {
+      "id": "T17",
+      "passed": true,
+      "problems": [],
+      "status": "answered",
+      "attempts": 1,
+      "trace": [
+        "route: category=authentication query='transfer USD 150,000 instruction verification'",
+        "retrieve: 10 clauses: OPS-AUT-004#4.6, OPS-AUT-004#4.5, OPS-AUT-004#4.4, OPS-AUT-004#4.12, OPS-AUT-004#4.3, OPS-AUT-004#4.11, OPS-AUT-004#4.1, OPS-AUT-004#4.10, OPS-CUT-001#1.5, OPS-PTR-005#5.7",
+        "answer: attempt 1",
+        "validate[guardrails-ai]: passed",
+        "finalize: answered"
+      ],
+      "guardrail_case": false
+    },
+    {
+      "id": "T18",
+      "passed": true,
+      "problems": [],
+      "status": "answered",
+      "attempts": 1,
+      "trace": [
+        "route: category=authentication query='failed security questions on the same call'",
+        "retrieve: 9 clauses: OPS-AUT-004#4.9, OPS-AUT-004#4.7, OPS-AUT-004#4.3, OPS-AUT-004#4.1, OPS-AUT-004#4.2, OPS-AUT-004#4.8, OPS-AUT-004#4.4, OPS-AUT-004#4.11, OPS-PTR-005#5.1",
+        "answer: attempt 1",
+        "validate[guardrails-ai]: passed",
+        "finalize: answered"
+      ],
+      "guardrail_case": false
+    },
+    {
+      "id": "T19",
+      "passed": true,
+      "problems": [],
+      "status": "answered",
+      "attempts": 1,
+      "trace": [
+        "route: category=authentication query='checks on outgoing payment transfers'",
+        "retrieve: 10 clauses: OPS-AUT-004#4.10, OPS-AUT-004#4.11, OPS-AUT-004#4.12, OPS-AUT-004#4.5, OPS-AUT-004#4.3, OPS-AUT-004#4.6, OPS-AUT-004#4.2, OPS-AUT-004#4.1, OPS-LND-003#3.7, OPS-PTR-005#5.5",
+        "answer: attempt 1",
+        "validate[guardrails-ai]: passed",
+        "finalize: answered"
+      ],
+      "guardrail_case": false
+    },
+    {
+      "id": "T20",
+      "passed": true,
+      "problems": [],
+      "status": "answered",
+      "attempts": 1,
+      "trace": [
+        "route: category=authentication query='checks on incoming payment transfers'",
+        "retrieve: 10 clauses: OPS-AUT-004#4.11, OPS-AUT-004#4.10, OPS-AUT-004#4.12, OPS-AUT-004#4.3, OPS-AUT-004#4.5, OPS-AUT-004#4.2, OPS-AUT-004#4.1, OPS-AUT-004#4.9, OPS-LND-003#3.7, OPS-PTR-005#5.5",
+        "answer: attempt 1",
+        "validate[guardrails-ai]: passed",
+        "finalize: answered"
+      ],
+      "guardrail_case": false
+    },
+    {
+      "id": "T21",
+      "passed": true,
+      "problems": [],
+      "status": "answered",
+      "attempts": 1,
+      "trace": [
+        "route: category=pretrade_requirements query='accumulator order process, documents, call script, checks before trade'",
+        "retrieve: 9 clauses: OPS-PTR-005#5.12, OPS-PTR-005#5.1, OPS-PTR-005#5.6, OPS-PTR-005#5.7, OPS-PTR-005#5.4, OPS-PTR-005#5.2, OPS-PTR-005#5.3, OPS-PTR-005#5.8, OPS-AUT-004#4.4",
+        "answer: attempt 1",
+        "validate[guardrails-ai]: passed",
+        "finalize: answered"
+      ],
+      "guardrail_case": false
+    },
+    {
+      "id": "T22",
+      "passed": true,
+      "problems": [],
+      "status": "answered",
+      "attempts": 1,
+      "trace": [
+        "route: category=pretrade_requirements query='details for taking a listed equity limit order'",
+        "retrieve: 8 clauses: OPS-PTR-005#5.2, OPS-PTR-005#5.9, OPS-PTR-005#5.3, OPS-PTR-005#5.4, OPS-PTR-005#5.10, OPS-PTR-005#5.6, OPS-PTR-005#5.12, OPS-PTR-005#5.7",
+        "answer: attempt 1",
+        "validate[guardrails-ai]: passed",
+        "finalize: answered"
+      ],
+      "guardrail_case": false
+    },
+    {
+      "id": "T23",
+      "passed": true,
+      "problems": [],
+      "status": "answered",
+      "attempts": 1,
+      "trace": [
+        "route: category=pretrade_requirements query='details to take a bond order'",
+        "retrieve: 8 clauses: OPS-PTR-005#5.3, OPS-PTR-005#5.4, OPS-PTR-005#5.12, OPS-PTR-005#5.9, OPS-PTR-005#5.2, OPS-PTR-005#5.6, OPS-PTR-005#5.7, OPS-PTR-005#5.11",
+        "answer: attempt 1",
+        "validate[guardrails-ai]: passed",
+        "finalize: answered"
+      ],
+      "guardrail_case": false
+    },
+    {
+      "id": "T24",
+      "passed": true,
+      "problems": [],
+      "status": "answered",
+      "attempts": 1,
+      "trace": [
+        "route: category=pretrade_requirements query='requirements for FX order and time deposit'",
+        "retrieve: 10 clauses: OPS-PTR-005#5.4, OPS-PTR-005#5.12, OPS-PTR-005#5.3, OPS-PTR-005#5.9, OPS-PTR-005#5.6, OPS-PTR-005#5.7, OPS-PTR-005#5.2, OPS-PTR-005#5.11, OPS-CUT-001#1.2, OPS-CUT-001#1.1",
+        "answer: attempt 1",
+        "validate[guardrails-ai]: passed",
+        "finalize: answered"
+      ],
+      "guardrail_case": false
+    },
+    {
+      "id": "T25",
+      "passed": true,
+      "problems": [],
+      "status": "answered",
+      "attempts": 1,
+      "trace": [
+        "route: category=pretrade_requirements query='investment fund order'",
+        "retrieve: 8 clauses: OPS-PTR-005#5.9, OPS-PTR-005#5.3, OPS-PTR-005#5.2, OPS-PTR-005#5.12, OPS-PTR-005#5.11, OPS-PTR-005#5.6, OPS-PTR-005#5.4, OPS-PTR-005#5.7",
+        "answer: attempt 1",
+        "validate[guardrails-ai]: passed",
+        "finalize: answered"
+      ],
+      "guardrail_case": false
+    },
+    {
+      "id": "T26",
+      "passed": true,
+      "problems": [],
+      "status": "answered",
+      "attempts": 1,
+      "trace": [
+        "route: category=pretrade_requirements query='client risk profile review and order placement'",
+        "retrieve: 8 clauses: OPS-PTR-005#5.5, OPS-PTR-005#5.11, OPS-PTR-005#5.6, OPS-PTR-005#5.12, OPS-PTR-005#5.13, OPS-PTR-005#5.7, OPS-PTR-005#5.9, OPS-PTR-005#5.4",
+        "answer: attempt 1",
+        "validate[guardrails-ai]: passed",
+        "finalize: answered"
+      ],
+      "guardrail_case": false
+    },
+    {
+      "id": "T27",
+      "passed": true,
+      "problems": [],
+      "status": "answered",
+      "attempts": 1,
+      "trace": [
+        "route: category=pretrade_requirements query='structured note approval process for USD 3 million notional'",
+        "retrieve: 10 clauses: OPS-PTR-005#5.7, OPS-PTR-005#5.12, OPS-PTR-005#5.6, OPS-PTR-005#5.3, OPS-PTR-005#5.11, OPS-PTR-005#5.5, OPS-PTR-005#5.4, OPS-PTR-005#5.9, OPS-PRC-002#2.9, OPS-LND-003#3.2",
+        "answer: attempt 1",
+        "validate[guardrails-ai]: passed",
+        "finalize: answered"
+      ],
+      "guardrail_case": false
+    },
+    {
+      "id": "T28",
+      "passed": true,
+      "problems": [],
+      "status": "answered",
+      "attempts": 1,
+      "trace": [
+        "route: category=pretrade_requirements query='order confirmation email timing and account number format'",
+        "retrieve: 10 clauses: OPS-PTR-005#5.8, OPS-PTR-005#5.12, OPS-PTR-005#5.1, OPS-PTR-005#5.4, OPS-PTR-005#5.7, OPS-PTR-005#5.9, OPS-PTR-005#5.6, OPS-PTR-005#5.3, OPS-AUT-004#4.6, OPS-AUT-004#4.3",
+        "answer: attempt 1",
+        "validate[guardrails-ai]: passed",
+        "finalize: answered"
+      ],
+      "guardrail_case": false
+    },
+    {
+      "id": "T29",
+      "passed": true,
+      "problems": [],
+      "status": "answered",
+      "attempts": 1,
+      "trace": [
+        "route: category=pretrade_requirements query='product suitability form'",
+        "retrieve: 7 clauses: OPS-PTR-005#5.11, OPS-PTR-005#5.5, OPS-PTR-005#5.12, OPS-PTR-005#5.6, OPS-PTR-005#5.9, OPS-PTR-005#5.13, OPS-PTR-005#5.7",
+        "answer: attempt 1",
+        "validate[guardrails-ai]: passed",
+        "finalize: answered"
+      ],
+      "guardrail_case": false
+    },
+    {
+      "id": "T30",
+      "passed": true,
+      "problems": [],
+      "status": "answered",
+      "attempts": 1,
+      "trace": [
+        "route: category=pretrade_requirements query='review client profile before calling for investment idea'",
+        "retrieve: 10 clauses: OPS-PTR-005#5.13, OPS-PTR-005#5.5, OPS-PTR-005#5.11, OPS-PTR-005#5.12, OPS-PTR-005#5.6, OPS-PTR-005#5.9, OPS-PTR-005#5.7, OPS-PTR-005#5.8, OPS-AUT-004#4.3, OPS-AUT-004#4.9",
         "answer: attempt 1",
         "validate[guardrails-ai]: passed",
         "finalize: answered"
@@ -161,6 +465,33 @@
       "trace": [
         "route: category=out_of_scope query='cutoff time for crypto withdrawals'",
         "finalize: out_of_scope"
+      ],
+      "guardrail_case": true
+    },
+    {
+      "id": "G02",
+      "passed": true,
+      "problems": [],
+      "status": "out_of_scope",
+      "attempts": 0,
+      "trace": [
+        "route: category=out_of_scope query='weather in Hong Kong'",
+        "finalize: out_of_scope"
+      ],
+      "guardrail_case": true
+    },
+    {
+      "id": "G03",
+      "passed": true,
+      "problems": [],
+      "status": "answered",
+      "attempts": 1,
+      "trace": [
+        "route: category=cutoff_times query='USD deposit cutoff'",
+        "retrieve: 9 clauses: OPS-CUT-001#1.2, OPS-CUT-001#1.3, OPS-CUT-001#1.1, OPS-CUT-001#1.5, OPS-CUT-001#1.7, OPS-CUT-001#1.6, OPS-CUT-001#1.4, OPS-PTR-005#5.4, OPS-LND-003#3.2",
+        "answer: attempt 1",
+        "validate[guardrails-ai]: passed",
+        "finalize: answered"
       ],
       "guardrail_case": true
     }

@@ -1,0 +1,44 @@
+=== T14: A client's overdraft is 12% above the approved limit. What approval is needed and what rate applies to the excess?
+Route: category=overdraft_rates query='overdraft approval needed and excess rate'
+Retrieved: OPS-LND-003#3.3, OPS-LND-003#3.4, OPS-LND-003#3.2, OPS-LND-003#3.7, OPS-LND-003#3.1, OPS-LND-003#3.6, OPS-LND-003#3.5, OPS-PTR-005#5.7, OPS-PRC-002#2.8
+Raw card:
+{
+  "cannot_answer": false,
+  "headline": "Desk Head approval needed; 2.00% extra on excess",
+  "key_values": [
+    {
+      "label": "Approval needed",
+      "value": "Desk Head"
+    },
+    {
+      "label": "Extra rate on excess",
+      "value": "2.00%"
+    }
+  ],
+  "points": [
+    {
+      "text": "An excess of more than 10% of the approved limit needs the Desk Head's approval before it is allowed.",
+      "citations": [
+        {
+          "chunk_id": "OPS-LND-003#3.3",
+          "quote": "An excess of more than 10% of the approved limit needs the Desk Head's approval before it is allowed."
+        }
+      ]
+    },
+    {
+      "text": "An overdraft above the approved limit that has been approved on a temporary basis costs an extra 2.00% on the excess amount, on top of the standard margin for the client's tier.",
+      "citations": [
+        {
+          "chunk_id": "OPS-LND-003#3.3",
+          "quote": "An overdraft above the approved limit that has been approved on a temporary basis costs an extra 2.00% on the excess amount, on top of the standard margin for the client's tier."
+        }
+      ]
+    }
+  ],
+  "exceptions": [],
+  "requires_signoff": true,
+  "signoff_by": "Desk Head",
+  "confidence": "high",
+  "note": null
+}
+Violations: none

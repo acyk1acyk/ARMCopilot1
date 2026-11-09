@@ -83,7 +83,7 @@ def route_node(state: AgentState, deps: Deps) -> dict[str, Any]:
         return {
             "outcome": "escalated",
             "message": "I couldn't classify that question. Please try again or check with your Desk Head.",
-            "trace": _t(state, f"route: failed ({type(exc).__name__})"),
+            "trace": _t(state, f"route: failed ({type(exc).__name__}: {' '.join(str(exc).split())[:200]})"),
         }
     line = f"route: category={route.category} query='{route.search_query}'"
     if route.category == "out_of_scope":
@@ -116,7 +116,7 @@ def answer_node(state: AgentState, deps: Deps) -> dict[str, Any]:
         return {
             "card": None,
             "attempts": attempts,
-            "trace": _t(state, f"answer: attempt {attempts} failed ({type(exc).__name__})"),
+            "trace": _t(state, f"answer: attempt {attempts} failed ({type(exc).__name__}: {' '.join(str(exc).split())[:200]})"),
         }
 
 
@@ -142,7 +142,8 @@ def validate_node(state: AgentState, deps: Deps) -> dict[str, Any]:
     update: dict[str, Any] = {
         "violations": [str(v) for v in result.violations],
         "feedback": feedback,
-        "trace": _t(state, f"validate[{result.engine}]: failed ({codes}) after attempt {attempts}"),
+        "trace": _t(state, f"validate[{result.engine}]: failed ({codes}) after attempt {attempts}: "
+                           + " | ".join(str(v)[:160] for v in result.violations[:3])),
     }
     if result.error:  # the guard itself broke: retrying the model will not help
         update.update(outcome="escalated", message=MSG_UNVERIFIED)

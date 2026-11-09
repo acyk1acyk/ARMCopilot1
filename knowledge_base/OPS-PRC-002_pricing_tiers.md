@@ -2,8 +2,8 @@
 doc_id: OPS-PRC-002
 title: Client Tiers and Pricing Schedule
 category: pricing_tiers
-version: "2.4"
-effective_date: 2026-04-01
+version: "2.5"
+effective_date: 2026-11-01
 owner: Private Banking Product and Pricing (fictional)
 status: active
 ---
@@ -26,9 +26,9 @@ The minimum to be a private banking client is USD 1 million equivalent. The tier
 
 Tiers are reviewed on 1 January and 1 July each year. An upgrade takes effect from the first business day after the review is confirmed by the Desk Head. A downgrade has a 3-month grace period, during which the client keeps the previous tier's pricing. A tier change outside the review dates needs the written approval of the Head of Private Banking.
 
-### 2.3 Negotiated pricing overrides the schedule
+### 2.3 Client-specific additional markup
 
-If a client has a signed Client Pricing Agreement (CPA) on file, the prices in the CPA override this schedule for the products it covers. Always check whether a CPA exists on the client profile before quoting any price. For products that the CPA does not cover, this schedule applies.
+The schedule in this document is the standard markup for every client in the tier. A client may also have a client-specific additional markup, shown in the "Additional markup" field of the client profile in the CRM. The additional markup is added on top of the standard schedule price. For example, a Tier B client with a 2 bps additional markup on major pairs pays 8 bps + 2 bps = 10 bps. Always check the client profile for an additional markup before quoting any price. An additional markup applies only to the products it names; for other products the standard schedule applies. A discount approved under clause 2.8 reduces the standard schedule price only, and the additional markup is then added.
 
 ### 2.4 FX spreads
 
@@ -65,3 +65,26 @@ For accumulators, decumulators and other structured products, no separate broker
 ### 2.8 Discount approval limits
 
 Staff may not offer a discount to the schedule on their own. Discounts off the schedule need approval as follows: up to 20% needs the Relationship Manager (RM), more than 20% and up to 40% needs the Desk Head, and more than 40% needs the Head of Private Banking. An approved discount must be recorded in the CRM before it is quoted to the client, and it applies to that trade only unless it is added to a CPA.
+
+### 2.9 Approval to set or change an additional markup
+
+Staff may not add, change or remove a client-specific additional markup on their own. The RM proposes the change with a written reason. An additional markup of up to 3 bps on FX, or up to 0.05% on brokerage, needs the approval of the Desk Head. A larger additional markup needs the approval of the Head of Private Banking. The approved markup and the reason must be recorded in the Additional markup field of the CRM before it is quoted to the client. The Desk Head reviews every additional markup once a year.
+
+### 2.10 Amount bands for FX, bond and fund pricing
+
+The price depends on the size of the transaction, measured in USD equivalent for FX and funds and in nominal amount for bonds:
+
+| Product | Amount band | Pricing |
+|---------|-------------|---------|
+| Spot FX | Up to USD 250,000 | Standard spread in clause 2.4 plus a 2 bps small-ticket supplement |
+| Spot FX | Above USD 250,000 up to USD 5 million | Standard spread in clause 2.4 |
+| Spot FX | Above USD 5 million | Manual quote from the dealing desk |
+| Bonds, secondary market | Up to USD 500,000 nominal | Tier rate in clause 2.5 |
+| Bonds, secondary market | Above USD 500,000 up to USD 5 million nominal | Tier rate in clause 2.5 less 0.02 percentage points |
+| Bonds, secondary market | Above USD 5 million nominal | Manual quote from the dealing desk |
+| Investment funds, subscription fee | Up to USD 250,000 | 1.00% |
+| Investment funds, subscription fee | Above USD 250,000 up to USD 1 million | 0.75% |
+| Investment funds, subscription fee | Above USD 1 million | 0.50% |
+
+The fund subscription fee is the same for every tier. Accumulators, decumulators and structured notes have no amount bands; see clause 2.7.
+

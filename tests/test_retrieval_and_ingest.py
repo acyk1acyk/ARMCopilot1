@@ -67,6 +67,25 @@ class SupabaseRetrieverTests(unittest.TestCase):
         r = SupabaseRetriever(Settings(), embedder=FakeEmbedder(), client=FakeClient([]))
         self.assertEqual(r.search("x", None, 5), [])
 
+    def test_extra_clauses_from_other_areas_are_added_when_routed(self):
+        class TwoStep(FakeClient):
+            def rpc(self, name, params):
+                self.calls.append((name, params))
+                rows = self.rows[0] if params["filter_category"] else self.rows[1]
+                return SimpleNamespace(execute=lambda: SimpleNamespace(data=rows))
+
+        cut = [c for c in CHUNKS if c.category == "cutoff_times"]
+        other = [c for c in CHUNKS if c.category == "pricing_tiers"]
+        client = TwoStep([[row(cut[0], 0.7)], [row(cut[0], 0.7), row(other[0], 0.6), row(other[1], 0.5), row(other[2], 0.4)]])
+        r = SupabaseRetriever(Settings(min_similarity=0.30), embedder=FakeEmbedder(), client=client)
+        ids = [s.chunk.chunk_id for s in r.search("q", "cutoff_times", 5)]
+        self.assertEqual(ids, [cut[0].chunk_id, other[0].chunk_id, other[1].chunk_id])  # own area first, at most 2 extras
+        self.assertEqual([c[1]["filter_category"] for c in client.calls], ["cutoff_times", None])
+        client2 = TwoStep([[row(cut[0], 0.7)], [row(other[0], 0.6)]])
+        r2 = SupabaseRetriever(Settings(), embedder=FakeEmbedder(), client=client2)
+        r2.search("q", None, 5)
+        self.assertEqual(len(client2.calls), 1)  # no routed area: a single search
+
 
 class IngestTests(unittest.TestCase):
     def test_rows_carry_embeddings_and_metadata(self):

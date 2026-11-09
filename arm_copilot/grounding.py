@@ -29,7 +29,7 @@ _RISKY = [
     re.compile(r"\b\d{1,2}:\d{2}\b"),                                           # times, e.g. 15:30
     re.compile(r"\b\d+(?:\.\d+)?%"),                                            # percentages
     re.compile(r"\b\d+(?:\.\d+)?bps\b"),                                        # basis points
-    re.compile(r"\b(?:usd|hkd|cnh|eur|gbp|jpy|aud)\s?\d+(?:\.\d+)?(?:\s?(?:million|billion|m|k))?\b"),  # amounts
+    re.compile(r"\b(?:usd|hkd|cnh|eur|gbp|jpy|aud)\s?\d+(?:\.\d+)?(?:\s?(?:million|billion|m|k))?\b(?!:\d)"),  # amounts (not "HKD 17:00", which is a currency next to a time)
     re.compile(r"\b\d+\s?(?:business days?|days?|months?|years?|hours?|minutes?)\b"),  # durations
 ]
 
@@ -67,9 +67,55 @@ def _present(token: str, haystack: str) -> bool:
     return re.search(r"(?<![\w.:])" + re.escape(token) + r"(?!\w)", haystack) is not None
 
 
+_ELLIPSIS = re.compile(r"\.{3,}|\u2026")
+MIN_FRAGMENT_CHARS = 3
+
+
+def _row_cells_match(quote: str, content: str) -> bool:
+    """A quote that is part of one table row: every cell is copied exactly, in order, from the same row.
+
+    This accepts a row with some columns left out, for example `| Hong Kong listed equities | 0.20% (min HKD 200) |`
+    taken from a row that also has a Tier A and a Tier C column. Cells must still match whole cells exactly.
+    """
+    if "|" not in quote:
+        return False
+    cells = [canon(c).strip() for c in quote.split("|")]
+    cells = [c for c in cells if c]
+    if len(cells) < 2 or len(" ".join(cells)) < MIN_QUOTE_CHARS:
+        return False
+    for line in content.splitlines():
+        if "|" not in line:
+            continue
+        row = [canon(c).strip() for c in line.split("|")]
+        it = iter(c for c in row if c)
+        if all(any(c == r for r in it) for c in cells):  # cells appear in the row, in order
+            return True
+    return False
+
+
 def quote_in_chunk(quote: str, content: str) -> bool:
-    q = canon(quote)
-    return len(q) >= MIN_QUOTE_CHARS and q in canon(content)
+    """True if the quote is word for word in the clause.
+
+    A quote may skip text with '...': then every fragment must appear word for word, in the same order.
+    Each fragment must be long enough to mean something, so '...' cannot be used to smuggle in claims.
+    A table-row quote may leave out whole columns (see _row_cells_match).
+    """
+    haystack = canon(content)
+    fragments = [canon(f).strip(" .,;:") for f in _ELLIPSIS.split(quote)]
+    fragments = [f for f in fragments if f]
+    if not fragments or len(canon(quote)) < MIN_QUOTE_CHARS:
+        return False
+    pos, ok = 0, True
+    for f in fragments:
+        if len(f) < MIN_FRAGMENT_CHARS and len(fragments) > 1:
+            ok = False
+            break
+        i = haystack.find(f, pos)
+        if i < 0:
+            ok = False
+            break
+        pos = i + len(f)
+    return ok or _row_cells_match(quote, content)
 
 
 def check_grounding(card: AnswerCard, chunks_by_id: Mapping[str, Chunk], question: str = "") -> list[Violation]:
@@ -113,10 +159,13 @@ def check_grounding(card: AnswerCard, chunks_by_id: Mapping[str, Chunk], questio
         for tok in risky_tokens(text):
             if not _present(tok, all_cited):
                 violations.append(Violation("ungrounded_value", f"The {where} states '{tok}', which is not in any cited clause."))
+    # Exceptions flag conditions from related clauses, so their numbers may come from any retrieved clause
+    # (an invented number is still blocked because it will not be in any of them).
+    all_retrieved = "\n".join(canon(c.content) for c in chunks_by_id.values()) + "\n" + q
     for exc in card.exceptions:
         for tok in risky_tokens(exc):
-            if not _present(tok, all_cited):
-                violations.append(Violation("ungrounded_value", f"An exception states '{tok}', which is not in any cited clause."))
+            if not _present(tok, all_retrieved):
+                violations.append(Violation("ungrounded_value", f"An exception states '{tok}', which is not in any retrieved clause."))
     return violations
 
 

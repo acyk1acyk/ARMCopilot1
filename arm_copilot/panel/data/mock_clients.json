@@ -1,0 +1,85 @@
+{
+  "note": "FICTIONAL clients for the ARM Copilot prototype. Names, assets and histories are invented. Do not add real clients or anything from a real bank.",
+  "clients": [
+    {
+      "client_id": "C-1001",
+      "display_name": "Marlowe Family Holdings (fictional)",
+      "tier": "A",
+      "risk_profile": "Balanced",
+      "risk_profile_reviewed": "2026-03-12",
+      "professional_investor": true,
+      "additional_markup": {"spot_fx": "2 bps"},
+      "authorised_persons": ["Spouse of the main account holder"],
+      "background": {
+        "source_of_assets": "Sale of a family manufacturing business in 2021",
+        "business_activity": "Holding company for two property investments",
+        "family_situation": "Two adult children; spouse is a joint decision maker",
+        "notable_transactions": "USD 4.2 million bond purchase in February 2026"
+      },
+      "investor_profile": {
+        "knowledge_and_experience": "Experienced in bonds and funds; some structured product experience",
+        "objectives": "Capital preservation with moderate income"
+      }
+    },
+    {
+      "client_id": "C-1002",
+      "display_name": "Ms. Calder Wren (fictional)",
+      "tier": "B",
+      "risk_profile": "Growth",
+      "risk_profile_reviewed": "2025-08-20",
+      "professional_investor": false,
+      "additional_markup": {},
+      "authorised_persons": [],
+      "background": {
+        "source_of_assets": "Salary and share options from a technology employer",
+        "business_activity": "None",
+        "family_situation": "Single, no dependants",
+        "notable_transactions": "USD 800,000 deposit received in March 2026"
+      },
+      "investor_profile": {
+        "knowledge_and_experience": "Experienced in listed equities; no derivatives experience",
+        "objectives": "Long-term growth"
+      }
+    },
+    {
+      "client_id": "C-1003",
+      "display_name": "Orchard Lane Ventures Ltd (fictional)",
+      "tier": "C",
+      "risk_profile": "Income",
+      "risk_profile_reviewed": "2026-09-01",
+      "professional_investor": true,
+      "additional_markup": {},
+      "authorised_persons": ["Finance director of the company"],
+      "background": {
+        "source_of_assets": "Profits retained from a trading business",
+        "business_activity": "Small import and export trading company",
+        "family_situation": "Owned by two founding partners",
+        "notable_transactions": "Regular payments to overseas suppliers"
+      },
+      "investor_profile": {
+        "knowledge_and_experience": "Experienced in time deposits and FX; limited investment experience",
+        "objectives": "Regular income and liquidity for business needs"
+      }
+    },
+    {
+      "client_id": "C-1004",
+      "display_name": "Dr. Fenn Aldous (fictional)",
+      "tier": "B",
+      "risk_profile": "Balanced",
+      "risk_profile_reviewed": "2026-05-30",
+      "professional_investor": false,
+      "additional_markup": {"spot_fx": "3 bps"},
+      "authorised_persons": [],
+      "background": {
+        "source_of_assets": "Proceeds from selling a medical practice",
+        "business_activity": "Part-time consultant",
+        "family_situation": "Married with one dependent child",
+        "notable_transactions": "First payment to a new overseas beneficiary in July 2026"
+      },
+      "investor_profile": {
+        "knowledge_and_experience": "Limited; mainly time deposits and funds",
+        "objectives": "Steady income and protecting capital"
+      }
+    }
+  ]
+}

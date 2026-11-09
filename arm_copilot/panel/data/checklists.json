@@ -1,0 +1,1234 @@
+{
+  "note": "Every step cites a clause in the fictional knowledge base. tests/test_panel.py checks that each quote is written word for word in its clause. 'when' is one of: always, notional_gt_2m, notional_gt_500k, notional_gt_100k, risk_profile_overdue.",
+  "shared": {
+    "before_common": [
+      {
+        "id": "review_profile",
+        "text": "Review the client profile: background summary and investor profile",
+        "when": "always",
+        "why": [
+          {
+            "chunk_id": "OPS-PTR-005#5.13",
+            "quote": "review the client profile in the CRM"
+          }
+        ]
+      },
+      {
+        "id": "risk_profile_ok",
+        "text": "Check the risk profile was reviewed within the last 12 months and the product's risk rating does not exceed it",
+        "when": "always",
+        "why": [
+          {
+            "chunk_id": "OPS-PTR-005#5.5",
+            "quote": "reviewed within the last 12 months"
+          }
+        ]
+      },
+      {
+        "id": "risk_profile_blocked",
+        "text": "STOP: the risk profile is older than 12 months. The order cannot be taken until the RM refreshes it. The client cannot waive this.",
+        "when": "risk_profile_overdue",
+        "why": [
+          {
+            "chunk_id": "OPS-PTR-005#5.5",
+            "quote": "the order cannot be taken and the RM must refresh the risk profile first"
+          }
+        ]
+      }
+    ],
+    "pricing_common": [
+      {
+        "id": "additional_markup",
+        "text": "Check the client profile for an additional markup before quoting any price",
+        "when": "always",
+        "why": [
+          {
+            "chunk_id": "OPS-PRC-002#2.3",
+            "quote": "Always check the client profile for an additional markup before quoting any price"
+          }
+        ]
+      },
+      {
+        "id": "no_own_discount",
+        "text": "Do not offer a discount on your own: it needs the right approval and must be recorded in the CRM before it is quoted",
+        "when": "always",
+        "why": [
+          {
+            "chunk_id": "OPS-PRC-002#2.8",
+            "quote": "Staff may not offer a discount to the schedule on their own"
+          }
+        ]
+      }
+    ],
+    "call_open": [
+      {
+        "id": "recorded",
+        "text": "Tell the client the call is recorded",
+        "when": "always",
+        "why": [
+          {
+            "chunk_id": "OPS-PTR-005#5.1",
+            "quote": "tell the client that the call is recorded"
+          }
+        ]
+      },
+      {
+        "id": "auth_l3",
+        "text": "Authenticate at Level 3: full name and client reference number, two advanced questions, then the passphrase (never read it aloud)",
+        "when": "always",
+        "why": [
+          {
+            "chunk_id": "OPS-PTR-005#5.1",
+            "quote": "authenticate the client at Level 3 under OPS-AUT-004"
+          },
+          {
+            "chunk_id": "OPS-AUT-004#4.9",
+            "quote": "ask for the client's full name and client reference number"
+          },
+          {
+            "chunk_id": "OPS-AUT-004#4.4",
+            "quote": "Staff must never read the passphrase aloud"
+          }
+        ]
+      }
+    ],
+    "call_close": [
+      {
+        "id": "read_back",
+        "text": "Read the full order back and obtain a clear verbal 'confirmed' before entering it",
+        "when": "always",
+        "why": [
+          {
+            "chunk_id": "OPS-PTR-005#5.1",
+            "quote": "read the full order back to the client and obtain a clear verbal"
+          }
+        ]
+      }
+    ],
+    "post_common": [
+      {
+        "id": "confirm_email",
+        "text": "Send the order confirmation email within 30 minutes after execution",
+        "when": "always",
+        "why": [
+          {
+            "chunk_id": "OPS-PTR-005#5.8",
+            "quote": "within 30 minutes after execution"
+          }
+        ]
+      },
+      {
+        "id": "mask_account",
+        "text": "Show only the last 4 digits of the account number, and never put the passphrase or authentication answers in the email",
+        "when": "always",
+        "why": [
+          {
+            "chunk_id": "OPS-PTR-005#5.8",
+            "quote": "only the last 4 digits are shown"
+          },
+          {
+            "chunk_id": "OPS-PTR-005#5.8",
+            "quote": "must not contain the passphrase"
+          }
+        ]
+      }
+    ]
+  },
+  "products": {
+    "hk_equity": {
+      "phases": [
+        {
+          "id": "before",
+          "title": "Before the call",
+          "steps": [
+            {
+              "include": "before_common"
+            },
+            {
+              "include": "pricing_common"
+            }
+          ]
+        },
+        {
+          "id": "call",
+          "title": "On the call",
+          "steps": [
+            {
+              "include": "call_open"
+            },
+            {
+              "id": "eq_ident",
+              "text": "Take the stock code or ISIN, the market, buy or sell, and the quantity",
+              "when": "always",
+              "why": [
+                {
+                  "chunk_id": "OPS-PTR-005#5.2",
+                  "quote": "the stock code or ISIN, the market, buy or sell, the quantity"
+                }
+              ]
+            },
+            {
+              "id": "eq_type",
+              "text": "Take the order type: market or limit, and the limit price for a limit order",
+              "when": "always",
+              "why": [
+                {
+                  "chunk_id": "OPS-PTR-005#5.2",
+                  "quote": "whether it is a market order or a limit order, the limit price (for a limit order)"
+                }
+              ]
+            },
+            {
+              "id": "eq_valid",
+              "text": "Take the order validity: day order, or good-till-cancelled for up to 30 days",
+              "when": "always",
+              "why": [
+                {
+                  "chunk_id": "OPS-PTR-005#5.2",
+                  "quote": "the order validity (day order, or good-till-cancelled for up to 30 days)"
+                }
+              ]
+            },
+            {
+              "id": "eq_settle",
+              "text": "Take the settlement account",
+              "when": "always",
+              "why": [
+                {
+                  "chunk_id": "OPS-PTR-005#5.2",
+                  "quote": "and the settlement account"
+                }
+              ]
+            },
+            {
+              "id": "eq_stop",
+              "text": "If the client wants a stop-loss: only for Hong Kong listed equities. Take the trigger price and whether it becomes a market or limit order, and say it does not guarantee execution at the trigger price",
+              "when": "always",
+              "why": [
+                {
+                  "chunk_id": "OPS-PTR-005#5.10",
+                  "quote": "A stop-loss order is accepted only for Hong Kong listed equities"
+                },
+                {
+                  "chunk_id": "OPS-PTR-005#5.10",
+                  "quote": "does not guarantee execution at the trigger price"
+                }
+              ]
+            },
+            {
+              "include": "call_close"
+            }
+          ]
+        },
+        {
+          "id": "after",
+          "title": "After the trade",
+          "steps": [
+            {
+              "include": "post_common"
+            }
+          ]
+        }
+      ]
+    },
+    "us_equity": {
+      "phases": [
+        {
+          "id": "before",
+          "title": "Before the call",
+          "steps": [
+            {
+              "include": "before_common"
+            },
+            {
+              "include": "pricing_common"
+            }
+          ]
+        },
+        {
+          "id": "call",
+          "title": "On the call",
+          "steps": [
+            {
+              "include": "call_open"
+            },
+            {
+              "id": "eq_ident",
+              "text": "Take the stock code or ISIN, the market, buy or sell, and the quantity",
+              "when": "always",
+              "why": [
+                {
+                  "chunk_id": "OPS-PTR-005#5.2",
+                  "quote": "the stock code or ISIN, the market, buy or sell, the quantity"
+                }
+              ]
+            },
+            {
+              "id": "eq_type",
+              "text": "Take the order type: market or limit, and the limit price for a limit order",
+              "when": "always",
+              "why": [
+                {
+                  "chunk_id": "OPS-PTR-005#5.2",
+                  "quote": "whether it is a market order or a limit order, the limit price (for a limit order)"
+                }
+              ]
+            },
+            {
+              "id": "eq_valid",
+              "text": "Take the order validity: day order, or good-till-cancelled for up to 30 days",
+              "when": "always",
+              "why": [
+                {
+                  "chunk_id": "OPS-PTR-005#5.2",
+                  "quote": "the order validity (day order, or good-till-cancelled for up to 30 days)"
+                }
+              ]
+            },
+            {
+              "id": "eq_settle",
+              "text": "Take the settlement account",
+              "when": "always",
+              "why": [
+                {
+                  "chunk_id": "OPS-PTR-005#5.2",
+                  "quote": "and the settlement account"
+                }
+              ]
+            },
+            {
+              "include": "call_close"
+            }
+          ]
+        },
+        {
+          "id": "after",
+          "title": "After the trade",
+          "steps": [
+            {
+              "include": "post_common"
+            }
+          ]
+        }
+      ]
+    },
+    "bond": {
+      "phases": [
+        {
+          "id": "before",
+          "title": "Before the call",
+          "steps": [
+            {
+              "include": "before_common"
+            },
+            {
+              "include": "pricing_common"
+            }
+          ]
+        },
+        {
+          "id": "call",
+          "title": "On the call",
+          "steps": [
+            {
+              "include": "call_open"
+            },
+            {
+              "id": "bd_details",
+              "text": "Take the ISIN, nominal amount, buy or sell, price (clean price) or yield, settlement date and settlement account",
+              "when": "always",
+              "why": [
+                {
+                  "chunk_id": "OPS-PTR-005#5.3",
+                  "quote": "the ISIN, the nominal amount, buy or sell, the price (clean price) or yield, the settlement date, and the settlement account"
+                }
+              ]
+            },
+            {
+              "id": "bd_denom",
+              "text": "Confirm the nominal amount meets the bond's minimum denomination",
+              "when": "always",
+              "why": [
+                {
+                  "chunk_id": "OPS-PTR-005#5.3",
+                  "quote": "confirm that the nominal amount meets the bond's minimum denomination"
+                }
+              ]
+            },
+            {
+              "include": "call_close"
+            }
+          ]
+        },
+        {
+          "id": "after",
+          "title": "After the trade",
+          "steps": [
+            {
+              "include": "post_common"
+            }
+          ]
+        }
+      ]
+    },
+    "fund": {
+      "phases": [
+        {
+          "id": "before",
+          "title": "Before the call",
+          "steps": [
+            {
+              "include": "before_common"
+            },
+            {
+              "include": "pricing_common"
+            },
+            {
+              "id": "fund_kfs",
+              "text": "Confirm the client has received the fund's Key Facts Statement",
+              "when": "always",
+              "why": [
+                {
+                  "chunk_id": "OPS-PTR-005#5.9",
+                  "quote": "confirm that the client has received the fund's Key Facts Statement"
+                }
+              ]
+            }
+          ]
+        },
+        {
+          "id": "call",
+          "title": "On the call",
+          "steps": [
+            {
+              "include": "call_open"
+            },
+            {
+              "id": "fund_ident",
+              "text": "Take the fund name or ISIN and share class, subscription or redemption, and the amount or number of units",
+              "when": "always",
+              "why": [
+                {
+                  "chunk_id": "OPS-PTR-005#5.9",
+                  "quote": "the fund name or ISIN and the share class"
+                }
+              ]
+            },
+            {
+              "id": "fund_ccy",
+              "text": "Take the dealing currency and the settlement account",
+              "when": "always",
+              "why": [
+                {
+                  "chunk_id": "OPS-PTR-005#5.9",
+                  "quote": "the dealing currency and the settlement account"
+                }
+              ]
+            },
+            {
+              "id": "fund_price",
+              "text": "Tell the client the price is not known until after the dealing cutoff, and a later order is dealt on the next dealing day",
+              "when": "always",
+              "why": [
+                {
+                  "chunk_id": "OPS-PTR-005#5.9",
+                  "quote": "the price is not known until after the fund's dealing cutoff"
+                }
+              ]
+            },
+            {
+              "include": "call_close"
+            }
+          ]
+        },
+        {
+          "id": "after",
+          "title": "After the trade",
+          "steps": [
+            {
+              "include": "post_common"
+            }
+          ]
+        }
+      ]
+    },
+    "spot_fx": {
+      "phases": [
+        {
+          "id": "before",
+          "title": "Before the call",
+          "steps": [
+            {
+              "include": "before_common"
+            },
+            {
+              "include": "pricing_common"
+            },
+            {
+              "id": "fx_manual",
+              "text": "Above USD 5 million equivalent there is no schedule price: the dealing desk gives a manual quote",
+              "when": "always",
+              "why": [
+                {
+                  "chunk_id": "OPS-PRC-002#2.4",
+                  "quote": "the dealing desk gives a manual quote"
+                }
+              ]
+            }
+          ]
+        },
+        {
+          "id": "call",
+          "title": "On the call",
+          "steps": [
+            {
+              "include": "call_open"
+            },
+            {
+              "id": "fx_details",
+              "text": "Take the currency pair, which currency is bought and sold, the amount, the value date, the limit rate if any, and the settlement instructions",
+              "when": "always",
+              "why": [
+                {
+                  "chunk_id": "OPS-PTR-005#5.4",
+                  "quote": "the currency pair, which currency is bought and which is sold, the amount, the value date, the limit rate (if any) and the settlement instructions"
+                }
+              ]
+            },
+            {
+              "include": "call_close"
+            }
+          ]
+        },
+        {
+          "id": "after",
+          "title": "After the trade",
+          "steps": [
+            {
+              "include": "post_common"
+            }
+          ]
+        }
+      ]
+    },
+    "time_deposit": {
+      "phases": [
+        {
+          "id": "before",
+          "title": "Before the call",
+          "steps": [
+            {
+              "include": "before_common"
+            },
+            {
+              "id": "td_cutoff",
+              "text": "Check the instruction will be received before the cutoff for the currency and value date (HKT, time received by the desk)",
+              "when": "always",
+              "why": [
+                {
+                  "chunk_id": "OPS-CUT-001#1.1",
+                  "quote": "refer to the time the instruction is received and recorded by the desk"
+                }
+              ]
+            },
+            {
+              "id": "td_nofee",
+              "text": "No fee applies to a time deposit placement",
+              "when": "always",
+              "why": [
+                {
+                  "chunk_id": "OPS-PRC-002#2.5",
+                  "quote": "Time deposit placements carry no fee"
+                }
+              ]
+            }
+          ]
+        },
+        {
+          "id": "call",
+          "title": "On the call",
+          "steps": [
+            {
+              "include": "call_open"
+            },
+            {
+              "id": "td_details",
+              "text": "Take the currency, amount, tenor, value date and the maturity instruction",
+              "when": "always",
+              "why": [
+                {
+                  "chunk_id": "OPS-PTR-005#5.4",
+                  "quote": "the currency, the amount, the tenor, the value date and the maturity instruction"
+                }
+              ]
+            },
+            {
+              "id": "td_auto",
+              "text": "For a standing auto-rollover: it must be registered with Operations at least 2 business days before the first rollover, and each maturity is rolled manually until then",
+              "when": "always",
+              "why": [
+                {
+                  "chunk_id": "OPS-CUT-001#1.4",
+                  "quote": "at least 2 business days before the first rollover date"
+                }
+              ]
+            },
+            {
+              "id": "td_late",
+              "text": "If the cutoff has passed: the value date is not guaranteed. Only HKD and USD can get Desk Head approval for same-day late acceptance, with a fee, and the client is told in writing",
+              "when": "always",
+              "why": [
+                {
+                  "chunk_id": "OPS-CUT-001#1.5",
+                  "quote": "is not guaranteed for the requested value date"
+                }
+              ]
+            },
+            {
+              "include": "call_close"
+            }
+          ]
+        },
+        {
+          "id": "after",
+          "title": "After the trade",
+          "steps": [
+            {
+              "include": "post_common"
+            }
+          ]
+        }
+      ]
+    },
+    "loan": {
+      "phases": [
+        {
+          "id": "before",
+          "title": "Before the call",
+          "steps": [
+            {
+              "include": "before_common"
+            },
+            {
+              "id": "ln_table",
+              "text": "Use the loan cutoff table, not the deposit table",
+              "when": "always",
+              "why": [
+                {
+                  "chunk_id": "OPS-CUT-001#1.3",
+                  "quote": "Loan cutoffs are not the same as deposit cutoffs"
+                }
+              ]
+            },
+            {
+              "id": "ln_rate",
+              "text": "Rate = base rate + the client tier's margin, plus a tenor premium for a term loan",
+              "when": "always",
+              "why": [
+                {
+                  "chunk_id": "OPS-LND-003#3.5",
+                  "quote": "the standard margin for the client's tier plus a tenor premium"
+                }
+              ]
+            }
+          ]
+        },
+        {
+          "id": "call",
+          "title": "On the call",
+          "steps": [
+            {
+              "include": "call_open"
+            },
+            {
+              "id": "ln_auth",
+              "text": "A loan instruction needs Level 3 authentication",
+              "when": "always",
+              "why": [
+                {
+                  "chunk_id": "OPS-AUT-004#4.4",
+                  "quote": "To take a trade, deposit or loan instruction"
+                }
+              ]
+            },
+            {
+              "id": "ln_rollover",
+              "text": "A one-off rollover must be received before the cutoff for the maturity date",
+              "when": "always",
+              "why": [
+                {
+                  "chunk_id": "OPS-CUT-001#1.4",
+                  "quote": "must be received before the cutoff for the maturity date"
+                }
+              ]
+            },
+            {
+              "include": "call_close"
+            }
+          ]
+        },
+        {
+          "id": "after",
+          "title": "After the trade",
+          "steps": [
+            {
+              "include": "post_common"
+            }
+          ]
+        }
+      ]
+    },
+    "overdraft": {
+      "phases": [
+        {
+          "id": "before",
+          "title": "Before the call",
+          "steps": [
+            {
+              "include": "before_common"
+            },
+            {
+              "id": "od_ccy",
+              "text": "An overdraft is only available in HKD, USD, CNH and EUR; other currencies need a term loan",
+              "when": "always",
+              "why": [
+                {
+                  "chunk_id": "OPS-LND-003#3.1",
+                  "quote": "Overdrafts are available only in HKD, USD, CNH and EUR"
+                }
+              ]
+            },
+            {
+              "id": "od_margin",
+              "text": "Quote the base rate for the currency plus the margin for the client's tier",
+              "when": "always",
+              "why": [
+                {
+                  "chunk_id": "OPS-LND-003#3.2",
+                  "quote": "the margin over the base rate is"
+                }
+              ]
+            }
+          ]
+        },
+        {
+          "id": "call",
+          "title": "On the call",
+          "steps": [
+            {
+              "include": "call_open"
+            },
+            {
+              "id": "od_excess",
+              "text": "A temporary excess costs an extra 2.00% on the excess for at most 5 business days. An excess over 10% of the limit needs the Desk Head's approval first",
+              "when": "always",
+              "why": [
+                {
+                  "chunk_id": "OPS-LND-003#3.3",
+                  "quote": "An excess of more than 10% of the approved limit needs the Desk Head's approval before it is allowed"
+                }
+              ]
+            },
+            {
+              "id": "od_penalty",
+              "text": "With no approved limit or a collateral shortfall the penalty rate (base rate + 6.00%) applies and a margin call is made",
+              "when": "always",
+              "why": [
+                {
+                  "chunk_id": "OPS-LND-003#3.4",
+                  "quote": "base rate + 6.00%"
+                }
+              ]
+            },
+            {
+              "include": "call_close"
+            }
+          ]
+        },
+        {
+          "id": "after",
+          "title": "After the call",
+          "steps": [
+            {
+              "id": "od_notify",
+              "text": "An excess or unauthorised overdraft must be told to the client on the same business day by phone, confirmed by email, and recorded in the call report",
+              "when": "always",
+              "why": [
+                {
+                  "chunk_id": "OPS-LND-003#3.7",
+                  "quote": "must be told on the same business day"
+                }
+              ]
+            }
+          ]
+        }
+      ]
+    },
+    "structured": {
+      "phases": [
+        {
+          "id": "before",
+          "title": "Before the call",
+          "steps": [
+            {
+              "include": "before_common"
+            },
+            {
+              "id": "st_pi",
+              "text": "Confirm in the system that the client has Professional Investor status",
+              "when": "always",
+              "why": [
+                {
+                  "chunk_id": "OPS-PTR-005#5.6",
+                  "quote": "confirm in the system that the client has Professional Investor status"
+                }
+              ]
+            },
+            {
+              "id": "st_docs",
+              "text": "Email the term sheet and the Product Key Facts statement, and get the client's acknowledgement before the order is placed",
+              "when": "always",
+              "why": [
+                {
+                  "chunk_id": "OPS-PTR-005#5.6",
+                  "quote": "email the term sheet and the Product Key Facts statement to the client and obtain the client's acknowledgement before the order is placed"
+                }
+              ]
+            },
+            {
+              "id": "st_risk_doc",
+              "text": "Also send the product risk disclosure statement",
+              "when": "always",
+              "why": [
+                {
+                  "chunk_id": "OPS-PTR-005#5.12",
+                  "quote": "the product risk disclosure statement"
+                }
+              ]
+            },
+            {
+              "id": "st_form",
+              "text": "Complete and save the product suitability form before the order is entered",
+              "when": "always",
+              "why": [
+                {
+                  "chunk_id": "OPS-PTR-005#5.11",
+                  "quote": "must be completed and saved before the order is entered"
+                }
+              ]
+            },
+            {
+              "id": "st_conc",
+              "text": "If the order is more than 20% of the client's total relationship assets in one product, add a concentration note and get the Desk Head's approval",
+              "when": "always",
+              "why": [
+                {
+                  "chunk_id": "OPS-PTR-005#5.11",
+                  "quote": "more than 20% of the client's total relationship assets in a single product"
+                }
+              ]
+            },
+            {
+              "id": "st_appr",
+              "text": "Get approval from the RM and the Desk Head before execution",
+              "when": "always",
+              "why": [
+                {
+                  "chunk_id": "OPS-PTR-005#5.7",
+                  "quote": "needs approval from the RM and the Desk Head before execution"
+                }
+              ]
+            },
+            {
+              "id": "st_appr_head",
+              "text": "The notional is above USD 2 million equivalent: the Head of Private Banking must also approve",
+              "when": "notional_gt_2m",
+              "why": [
+                {
+                  "chunk_id": "OPS-PTR-005#5.7",
+                  "quote": "the Head of Private Banking must also approve"
+                }
+              ]
+            },
+            {
+              "id": "st_appr_rec",
+              "text": "Record approvals in the approval system (email or chat approval is not valid), valid on the day given only. Do not execute until all are recorded",
+              "when": "always",
+              "why": [
+                {
+                  "chunk_id": "OPS-PTR-005#5.7",
+                  "quote": "email or chat approval is not valid"
+                },
+                {
+                  "chunk_id": "OPS-PTR-005#5.7",
+                  "quote": "An approval is valid on the day it is given only"
+                }
+              ]
+            }
+          ]
+        },
+        {
+          "id": "call",
+          "title": "On the call",
+          "steps": [
+            {
+              "include": "call_open"
+            },
+            {
+              "id": "st_margin",
+              "text": "Do not quote or estimate the dealing margin verbally: refer the client to the term sheet",
+              "when": "always",
+              "why": [
+                {
+                  "chunk_id": "OPS-PRC-002#2.7",
+                  "quote": "must not quote or estimate the margin verbally"
+                }
+              ]
+            },
+            {
+              "id": "st_risks",
+              "text": "State the key risks on the recorded line",
+              "when": "always",
+              "why": [
+                {
+                  "chunk_id": "OPS-PTR-005#5.6",
+                  "quote": "state the key risks on the recorded line"
+                }
+              ]
+            },
+            {
+              "id": "st_acc",
+              "text": "Accumulator: the client may have to buy at the strike price even when the market price is lower, leverage can multiply losses, and losses may exceed the initial investment",
+              "when": "always",
+              "why": [
+                {
+                  "chunk_id": "OPS-PTR-005#5.6",
+                  "quote": "the client may have to buy at the strike price even when the market price is lower"
+                }
+              ]
+            },
+            {
+              "id": "st_dec",
+              "text": "Decumulator: the client may have to sell at the strike price even when the market price is higher",
+              "when": "always",
+              "why": [
+                {
+                  "chunk_id": "OPS-PTR-005#5.6",
+                  "quote": "the client may have to sell at the strike price even when the market price is higher"
+                }
+              ]
+            },
+            {
+              "id": "st_read",
+              "text": "Confirm the client has read the documents",
+              "when": "always",
+              "why": [
+                {
+                  "chunk_id": "OPS-PTR-005#5.12",
+                  "quote": "confirm that the client has read the documents"
+                }
+              ]
+            },
+            {
+              "include": "call_close"
+            }
+          ]
+        },
+        {
+          "id": "after",
+          "title": "After the trade",
+          "steps": [
+            {
+              "include": "post_common"
+            },
+            {
+              "id": "st_note",
+              "text": "Operations issues the contract note by the next business day",
+              "when": "always",
+              "why": [
+                {
+                  "chunk_id": "OPS-PTR-005#5.12",
+                  "quote": "Operations issues the contract note by the next business day"
+                }
+              ]
+            },
+            {
+              "id": "st_file",
+              "text": "File the term sheet, the acknowledgement and the suitability form with the order record",
+              "when": "always",
+              "why": [
+                {
+                  "chunk_id": "OPS-PTR-005#5.12",
+                  "quote": "are filed with the order record"
+                }
+              ]
+            }
+          ]
+        }
+      ]
+    },
+    "payment_out": {
+      "phases": [
+        {
+          "id": "before",
+          "title": "Before releasing the payment",
+          "steps": [
+            {
+              "id": "po_auth",
+              "text": "Authenticate to the right level: Level 3 for the instruction",
+              "when": "always",
+              "why": [
+                {
+                  "chunk_id": "OPS-AUT-004#4.4",
+                  "quote": "To take a trade, deposit or loan instruction"
+                }
+              ]
+            },
+            {
+              "id": "po_l4",
+              "text": "Level 4 applies to a first payment to a new third-party beneficiary or a payment above USD 500,000 equivalent: also call the client back on the registered number",
+              "when": "always",
+              "why": [
+                {
+                  "chunk_id": "OPS-AUT-004#4.5",
+                  "quote": "call the client back on the registered number held on file"
+                }
+              ]
+            },
+            {
+              "id": "po_l4_ops",
+              "text": "The instruction cannot be released until Operations gives sign-off. A Level 4 instruction is never accepted by email alone",
+              "when": "notional_gt_500k",
+              "why": [
+                {
+                  "chunk_id": "OPS-AUT-004#4.5",
+                  "quote": "The instruction cannot be released until Operations gives sign-off"
+                }
+              ]
+            },
+            {
+              "id": "po_email",
+              "text": "Email instructions: only from the registered email address, never for Level 4. From USD 100,000 equivalent, also confirm by phone at Level 3",
+              "when": "notional_gt_100k",
+              "why": [
+                {
+                  "chunk_id": "OPS-AUT-004#4.6",
+                  "quote": "must also be confirmed by phone at Level 3"
+                }
+              ]
+            },
+            {
+              "id": "po_new",
+              "text": "Check 1, new third party: is the receiver someone the client has not paid in the last 12 months?",
+              "when": "always",
+              "why": [
+                {
+                  "chunk_id": "OPS-AUT-004#4.10",
+                  "quote": "is the receiver a new third party that the client has not paid in the last 12 months"
+                }
+              ]
+            },
+            {
+              "id": "po_amt",
+              "text": "Check 2, amount: is it more than 3 times the largest payment in the last 12 months?",
+              "when": "always",
+              "why": [
+                {
+                  "chunk_id": "OPS-AUT-004#4.10",
+                  "quote": "is the amount more than 3 times the largest payment the client made in the last 12 months"
+                }
+              ]
+            },
+            {
+              "id": "po_hist",
+              "text": "Check 3, transaction history: does it fit the account pattern? Funds paid out within 5 business days of arriving are unusual",
+              "when": "always",
+              "why": [
+                {
+                  "chunk_id": "OPS-AUT-004#4.10",
+                  "quote": "Funds that arrived and are paid out again within 5 business days are unusual"
+                }
+              ]
+            },
+            {
+              "id": "po_rel",
+              "text": "Check 4, relationship: what is the relationship between the client and the receiver?",
+              "when": "always",
+              "why": [
+                {
+                  "chunk_id": "OPS-AUT-004#4.10",
+                  "quote": "what is the relationship between the client and the receiver"
+                }
+              ]
+            },
+            {
+              "id": "po_purpose",
+              "text": "Check 5, purpose: is the stated purpose consistent with the client's background and the receiver's name and country?",
+              "when": "always",
+              "why": [
+                {
+                  "chunk_id": "OPS-AUT-004#4.10",
+                  "quote": "is the stated purpose consistent with the client's background"
+                }
+              ]
+            },
+            {
+              "id": "po_channel",
+              "text": "Check 6, authentication: was the instruction received through the registered channel and authenticated to the required level?",
+              "when": "always",
+              "why": [
+                {
+                  "chunk_id": "OPS-AUT-004#4.10",
+                  "quote": "was the instruction received through the registered channel"
+                }
+              ]
+            }
+          ]
+        },
+        {
+          "id": "unusual",
+          "title": "If any check is unusual or unexplained",
+          "steps": [
+            {
+              "id": "po_hold",
+              "text": "Do not release or credit the payment in the meantime",
+              "when": "always",
+              "why": [
+                {
+                  "chunk_id": "OPS-AUT-004#4.12",
+                  "quote": "Do not release or credit the payment in the meantime"
+                }
+              ]
+            },
+            {
+              "id": "po_comp",
+              "text": "Record the findings and send them to Compliance on the same business day. The Desk Head decides after Compliance replies",
+              "when": "always",
+              "why": [
+                {
+                  "chunk_id": "OPS-AUT-004#4.12",
+                  "quote": "send it to Compliance on the same business day"
+                }
+              ]
+            },
+            {
+              "id": "po_tip",
+              "text": "Do not tell the client that Compliance is reviewing the payment or why",
+              "when": "always",
+              "why": [
+                {
+                  "chunk_id": "OPS-AUT-004#4.12",
+                  "quote": "Do not tell the client that Compliance is reviewing the payment or why"
+                }
+              ]
+            }
+          ]
+        }
+      ]
+    },
+    "payment_in": {
+      "phases": [
+        {
+          "id": "before",
+          "title": "Checks on an incoming payment",
+          "steps": [
+            {
+              "id": "pi_sender",
+              "text": "Sender: does the name match the client or a relationship recorded on the client profile?",
+              "when": "always",
+              "why": [
+                {
+                  "chunk_id": "OPS-AUT-004#4.11",
+                  "quote": "does the sender's name match the client or a relationship recorded on the client profile"
+                }
+              ]
+            },
+            {
+              "id": "pi_new",
+              "text": "New sender: is the sender new, or from a country the client has not received money from before?",
+              "when": "always",
+              "why": [
+                {
+                  "chunk_id": "OPS-AUT-004#4.11",
+                  "quote": "is the sender new, or from a country the client has not received money from before"
+                }
+              ]
+            },
+            {
+              "id": "pi_amt",
+              "text": "Amount: is it more than 3 times the largest credit in the last 12 months?",
+              "when": "always",
+              "why": [
+                {
+                  "chunk_id": "OPS-AUT-004#4.11",
+                  "quote": "is the amount more than 3 times the largest credit received in the last 12 months"
+                }
+              ]
+            },
+            {
+              "id": "pi_purpose",
+              "text": "Purpose: is the stated purpose consistent with the client's background?",
+              "when": "always",
+              "why": [
+                {
+                  "chunk_id": "OPS-AUT-004#4.11",
+                  "quote": "is the stated purpose consistent with the client's background"
+                }
+              ]
+            },
+            {
+              "id": "pi_payout",
+              "text": "Pay-out: is the client asking to pay the money out again soon after it arrives?",
+              "when": "always",
+              "why": [
+                {
+                  "chunk_id": "OPS-AUT-004#4.11",
+                  "quote": "is the client asking to pay the money out again soon after it arrives"
+                }
+              ]
+            }
+          ]
+        },
+        {
+          "id": "unusual",
+          "title": "If any check is unusual or unexplained",
+          "steps": [
+            {
+              "id": "pi_hold",
+              "text": "Do not release or credit the payment in the meantime",
+              "when": "always",
+              "why": [
+                {
+                  "chunk_id": "OPS-AUT-004#4.12",
+                  "quote": "Do not release or credit the payment in the meantime"
+                }
+              ]
+            },
+            {
+              "id": "pi_comp",
+              "text": "Record the findings and send them to Compliance on the same business day",
+              "when": "always",
+              "why": [
+                {
+                  "chunk_id": "OPS-AUT-004#4.12",
+                  "quote": "send it to Compliance on the same business day"
+                }
+              ]
+            },
+            {
+              "id": "pi_tip",
+              "text": "Do not tell the client that Compliance is reviewing the payment or why",
+              "when": "always",
+              "why": [
+                {
+                  "chunk_id": "OPS-AUT-004#4.12",
+                  "quote": "Do not tell the client that Compliance is reviewing the payment or why"
+                }
+              ]
+            }
+          ]
+        }
+      ]
+    }
+  }
+}

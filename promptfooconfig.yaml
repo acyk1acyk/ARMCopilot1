@@ -1,0 +1,10 @@
+# Promptfoo regression run for ARM Copilot (the real pipeline, not a bare model).
+# Run:  PROMPTFOO_PYTHON=$(which python) npx promptfoo@latest eval --no-cache -j 2
+# View: npx promptfoo@latest view
+description: ARM Copilot v2 regression (30 questions + 3 guardrail cases)
+prompts:
+  - "{{question}}"
+providers:
+  - id: file://promptfoo/provider.py
+    label: arm-copilot-v2
+tests: file://promptfoo/tests.json

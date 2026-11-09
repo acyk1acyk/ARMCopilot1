@@ -113,8 +113,9 @@ class SupabaseRetriever:
             self._client = create_client(self._settings.supabase_url, self._settings.supabase_service_key)
         return self._client
 
-    def search(self, query: str, category: Optional[str], k: int) -> list[ScoredChunk]:
-        vector = self._get_embedder().embed_query(query)
+    CROSS_CATEGORY_EXTRA = 2  # clauses from other areas added when the question was routed to one area
+
+    def _rpc(self, vector: list[float], k: int, category: Optional[str]) -> list[ScoredChunk]:
         resp = (
             self._get_client()
             .rpc("match_chunks", {"query_embedding": vector, "match_count": k, "filter_category": category})
@@ -125,4 +126,14 @@ class SupabaseRetriever:
             sim = float(row.get("similarity", 0.0))
             if sim >= self._settings.min_similarity:
                 out.append(ScoredChunk(Chunk.from_row(row), sim))
+        return out
+
+    def search(self, query: str, category: Optional[str], k: int) -> list[ScoredChunk]:
+        vector = self._get_embedder().embed_query(query)
+        out = self._rpc(vector, k, category)
+        if category is not None and self.CROSS_CATEGORY_EXTRA > 0:
+            # Safety net: the router can pick a neighbouring area (pre-trade instead of pricing, for example).
+            seen = {s.chunk.chunk_id for s in out}
+            extras = [s for s in self._rpc(vector, k, None) if s.chunk.chunk_id not in seen]
+            out.extend(extras[: self.CROSS_CATEGORY_EXTRA])
         return out

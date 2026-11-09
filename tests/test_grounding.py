@@ -87,5 +87,73 @@ class GroundingTests(unittest.TestCase):
             self.assertEqual(v, [], f"{qid}: {[str(x) for x in v]}")
 
 
+class QuoteFragmentTests(unittest.TestCase):
+    CONTENT = "| USD | 12:00 | 16:30 | 17:00 |\n| CNH | 11:00 | 16:00 | 17:00 |"
+
+    def test_plain_and_ellipsis_quotes(self):
+        from arm_copilot.grounding import quote_in_chunk
+
+        self.assertTrue(quote_in_chunk("| USD | 12:00 | 16:30 | 17:00 |", self.CONTENT))
+        self.assertTrue(quote_in_chunk("USD ... 12:00 ... 17:00", self.CONTENT))
+        self.assertTrue(quote_in_chunk("USD | 12:00 \u2026 CNH | 11:00", self.CONTENT))
+
+    def test_ellipsis_cannot_reorder_or_invent(self):
+        from arm_copilot.grounding import quote_in_chunk
+
+        self.assertFalse(quote_in_chunk("CNH | 11:00 ... USD | 12:00", self.CONTENT))   # wrong order
+        self.assertFalse(quote_in_chunk("USD | 12:00 ... GBP | 16:30", self.CONTENT))   # GBP is not there
+        self.assertFalse(quote_in_chunk("USD ... 99:99", self.CONTENT))
+        self.assertFalse(quote_in_chunk("... ...", self.CONTENT))
+        self.assertFalse(quote_in_chunk("a ... b ... c", self.CONTENT))                 # fragments too short
+
+
+class CurrencyAndTimeTests(unittest.TestCase):
+    @classmethod
+    def setUpClass(cls):
+        cls.chunks = {c.chunk_id: c for c in load_chunks(Settings().kb_dir)}
+
+    def test_currency_next_to_a_time_is_not_treated_as_an_amount(self):
+        c = card([pt("Deposit cutoffs for T+1 value are: HKD 17:00, USD 16:30.", "OPS-CUT-001#1.2",
+                     "| USD | 12:00 | 16:30 | 17:00 |")])
+        self.assertEqual(sorted({v.code for v in check_grounding(c, self.chunks, "")}), [])
+
+    def test_real_amounts_are_still_checked(self):
+        self.assertIn("usd 3 million", risky_tokens("The notional is USD 3 million."))
+        c = card([pt("A late fee of HKD 500 applies.", "OPS-CUT-001#1.5", "A late acceptance fee of HKD 200 applies")])
+        self.assertEqual(sorted({v.code for v in check_grounding(c, self.chunks, "")}), ["ungrounded_value"])
+
+    def test_skipping_columns_with_an_ellipsis_is_accepted(self):
+        c = card([pt("HK equities are 0.20% for Tier B.", "OPS-PRC-002#2.5", "| Hong Kong listed equities | ... | 0.20% (min HKD 200) |")])
+        self.assertEqual(sorted({v.code for v in check_grounding(c, self.chunks, "")}), [])
+
+    def test_a_row_with_columns_left_out_is_accepted_if_cells_are_exact(self):
+        c = card([pt("HK equities are 0.20% for Tier B.", "OPS-PRC-002#2.5", "| Hong Kong listed equities | 0.20% (min HKD 200) |")])
+        self.assertEqual(sorted({v.code for v in check_grounding(c, self.chunks, "")}), [])
+
+    def test_row_cells_must_be_exact_and_in_order(self):
+        wrong_cell = card([pt("HK equities are 0.25%.", "OPS-PRC-002#2.5", "| Hong Kong listed equities | 0.20% (min HKD 250) |")])
+        self.assertIn("quote_mismatch", {v.code for v in check_grounding(wrong_cell, self.chunks, "")})
+        wrong_order = card([pt("HK equities are 0.20%.", "OPS-PRC-002#2.5", "| 0.20% (min HKD 200) | Hong Kong listed equities |")])
+        self.assertIn("quote_mismatch", {v.code for v in check_grounding(wrong_order, self.chunks, "")})
+        other_row = card([pt("Bonds are 0.20%.", "OPS-PRC-002#2.5", "| Bonds, secondary market | 0.20% (min HKD 200) |")])
+        self.assertIn("quote_mismatch", {v.code for v in check_grounding(other_row, self.chunks, "")})
+
+
+class ExceptionGroundingTests(unittest.TestCase):
+    @classmethod
+    def setUpClass(cls):
+        cls.chunks = {c.chunk_id: c for c in load_chunks(Settings().kb_dir)}
+
+    def test_exception_may_use_a_number_from_another_retrieved_clause(self):
+        c = card([pt("USD same-day cutoff is 12:00 HKT.", "OPS-CUT-001#1.2", "| USD | 12:00 | 16:30 | 17:00 |")],
+                 exceptions=["If Typhoon Signal No. 8 is in force at 09:00 HKT, same-day instructions are not accepted."])
+        self.assertEqual([v.code for v in check_grounding(c, self.chunks, "")], [])
+
+    def test_exception_with_an_invented_number_is_still_blocked(self):
+        c = card([pt("USD same-day cutoff is 12:00 HKT.", "OPS-CUT-001#1.2", "| USD | 12:00 | 16:30 | 17:00 |")],
+                 exceptions=["On holidays the cutoff moves to 08:15 HKT."])
+        self.assertEqual([v.code for v in check_grounding(c, self.chunks, "")], ["ungrounded_value"])
+
+
 if __name__ == "__main__":
     unittest.main()

@@ -2,8 +2,8 @@
 doc_id: OPS-AUT-004
 title: Client Authentication Standards - Telephone and Email
 category: authentication
-version: "2.1"
-effective_date: 2026-03-01
+version: "2.2"
+effective_date: 2026-11-01
 owner: Private Banking Risk and Controls (fictional)
 status: active
 ---
@@ -22,7 +22,7 @@ For questions that do not reveal any account information, such as opening hours 
 
 ### 4.3 Level 2: account information
 
-To discuss balances, positions or transactions, staff must confirm the Level 1 details and two of the following: the call comes from the registered mobile number, the client's date of birth, the registered email address, or the answer to one security question from the client profile.
+To discuss balances, positions or transactions, staff must confirm the Level 1 details and two of the following: the call comes from the registered mobile number, the client's date of birth, the registered email address, or the answer to one security question from the client profile. The account-knowledge questions in clause 4.9 may be used in place of these.
 
 ### 4.4 Level 3: trade, deposit and loan instructions
 
@@ -43,3 +43,22 @@ If the caller fails to answer a question correctly, staff must not say which ans
 ### 4.8 Forgotten passphrase
 
 If the client cannot remember the passphrase, staff must not take a trade, deposit or loan instruction on that call. Staff may offer a call-back to the registered number and complete Level 2. The passphrase can only be reset by the Desk Head through recovery verification, and the Client Account desk cannot reset it.
+
+### 4.9 Authentication on a call: steps, questions and cautions
+
+Run the authentication in this order and do not skip a step. Step 1, basic questions (Level 1): ask for the client's full name and client reference number, and confirm the client's relationship with the bank. Step 2, advanced questions (Level 2): ask two questions from clause 4.3, or ask two account-knowledge questions chosen from: the month the account was opened, the approximate amount of the most recent incoming credit, and the name of the client's relationship manager. Step 3 (Level 3, for trade, deposit and loan instructions): ask for the telephone passphrase. Step 4 (Level 4, high-risk instructions): complete the call-back in clause 4.5.
+
+Cautions: ask open questions and never offer the answer or ask a leading question. Do not confirm that a partly correct answer is close. Do not authenticate a third party such as an assistant or a family member unless the client profile names them as authorised. Do not continue if the caller is in a hurry to skip questions or puts pressure on you; stop and tell the Desk Head. Never rely on caller ID alone.
+
+### 4.10 Outgoing payments: checks to decide whether a payment is normal
+
+Before releasing an outgoing payment, check each of the following: (1) New third party: is the receiver a new third party that the client has not paid in the last 12 months? A new third-party receiver also needs Level 4 under clause 4.5. (2) Amount: is the amount more than 3 times the largest payment the client made in the last 12 months? (3) Transaction history: does the payment fit the usual pattern of the account, and did the funds arrive recently? Funds that arrived and are paid out again within 5 business days are unusual. (4) Relationship: what is the relationship between the client and the receiver (own account, family, own company, business partner or supplier, or no known relationship)? (5) Purpose: is the stated purpose consistent with the client's background and with the receiver's name and country? (6) Authentication: was the instruction received through the registered channel and authenticated to the level in clauses 4.4 to 4.6? If all six checks are consistent, the payment is normal. If any check is unusual or unexplained, do not release the payment and follow clause 4.12.
+
+### 4.11 Incoming payments: checks on the sender
+
+For an incoming payment, check: (1) Sender: does the sender's name match the client or a relationship recorded on the client profile (own account, family, own company or a known business relation)? (2) New sender: is the sender new, or from a country the client has not received money from before? (3) Amount: is the amount more than 3 times the largest credit received in the last 12 months? (4) Purpose: is the stated purpose consistent with the client's background? (5) Pay-out: is the client asking to pay the money out again soon after it arrives (see clause 4.10)? A sender with no known relationship to the client is unusual. Follow clause 4.12 for any unusual or unexplained check.
+
+### 4.12 Unusual payments: escalation
+
+When a payment check is unusual or unexplained, record the findings in the payment review record and send it to Compliance on the same business day. The Desk Head decides what happens next after Compliance replies. Do not release or credit the payment in the meantime. Do not tell the client that Compliance is reviewing the payment or why; tell the client only that the instruction needs further processing checks.
+

@@ -53,7 +53,7 @@ class Settings:
     supabase_service_key: str = ""
 
     # Retrieval
-    top_k: int = 5
+    top_k: int = 8
     min_similarity: float = 0.30  # cosine similarity; tune with the 30-question set in November
 
     # Hard limits that keep cost and behaviour predictable

@@ -24,7 +24,7 @@ from arm_copilot.retrieval import KeywordRetriever  # noqa: E402
 
 def main() -> int:
     ap = argparse.ArgumentParser()
-    ap.add_argument("--set", default=str(ROOT / "eval" / "test_set_v1.json"))
+    ap.add_argument("--set", default=str(ROOT / "eval" / "test_set_v2.json"))
     ap.add_argument("--retrieval-only", action="store_true")
     ap.add_argument("--engine", default="langgraph", choices=["langgraph", "sequential"])
     ap.add_argument("--min-pass", type=float, default=1.0, help="Required pass rate (default 1.0 = all questions).")

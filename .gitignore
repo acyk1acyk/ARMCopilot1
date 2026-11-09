@@ -88,3 +88,6 @@ tmp/
 .kiro/sessions/
 .kiro/
 !eval/results_latest.json
+
+
+eval/diagnosis_latest.txt

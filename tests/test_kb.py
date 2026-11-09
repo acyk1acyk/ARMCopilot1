@@ -52,7 +52,7 @@ class KnowledgeBaseTests(unittest.TestCase):
                     self.assertIn(f"{c.doc_id}#{clause}", self.by_id)
 
     def test_expected_size(self):
-        self.assertEqual(len(self.chunks), 38)
+        self.assertEqual(len(self.chunks), 49)
 
 
 if __name__ == "__main__":

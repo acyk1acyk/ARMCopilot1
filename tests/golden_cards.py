@@ -51,7 +51,7 @@ GOLDEN: dict[str, AnswerCard] = {
                 ("OPS-PRC-002#2.4", "Major pairs are USD/HKD, EUR/USD"),
             )
         ],
-        exceptions=["Check first whether the client has a signed Client Pricing Agreement."],
+        exceptions=["Check the client profile first for a client-specific additional markup."],
     ),
     "Q05": AnswerCard(
         headline="A 30% discount needs Desk Head approval.",
